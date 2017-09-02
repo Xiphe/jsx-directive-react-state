@@ -1,0 +1,31 @@
+{
+  "name": "@findus./patternson-directive-state",
+  "version": "0.1.0",
+  "description": "jsx directive to map redux state to component props",
+  "main": "config.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Xiphe/patternson-directive-state.git"
+  },
+  "keywords": [
+    "state",
+    "redux",
+    "patternson",
+    "directive",
+    "jsx"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Xiphe/patternson-directive-state/issues"
+  },
+  "homepage": "https://github.com/Xiphe/patternson-directive-state#readme",
+  "devDependencies": {
+    "eslint": "4.6.0",
+    "eslint-config-airbnb-base": "11.3.2",
+    "eslint-plugin-import": "2.7.0"
+  }
+}
