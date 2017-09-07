@@ -1,21 +1,51 @@
-function performSet(state, { scope, key, value }) {
-  if (!scope) {
-    return Object.assign({}, state, {
-      [key]: value,
-    });
-  }
+/* global PATTERNSON_ENV */
 
-  return Object.assign({}, state, {
-    [scope]: performSet(state[scope] || {}, { key, value }),
-  });
-}
+import { combineReducers } from 'redux';
 
-export default function reducer(state = { user: {} }, { type, payload }) {
-  if (type.indexOf('PATTERNSON:SET:') === 0) {
-    const tokens = type.split(':');
+const namespaces = [
+  'user',
+  'shared',
+  'session',
+  'ui',
+];
 
-    return performSet(state, { scope: tokens[2], key: tokens[3], value: payload });
-  }
+const setters = {
+  SET(state, { key, payload }) {
+    return {
+      ...state,
+      [key]: payload,
+    };
+  },
+  TOGGLE(state, { key }) {
+    const payload = !state[key];
 
-  return state;
-}
+    return setters.SET(state, { key, payload });
+  },
+};
+
+const initialState = PATTERNSON_ENV.initialState || {};
+
+export default combineReducers(namespaces.reduce((memo, namespace) => {
+  // eslint-disable-next-line no-param-reassign
+  memo[namespace] = (state = (initialState[namespace] || {}), { type, payload }) => {
+    const [
+      PATTERNSON,
+      setter,
+      scope,
+      key,
+    ] = type.split(':');
+
+    if (PATTERNSON !== 'PATTERNSON' || scope !== namespace) {
+      return state;
+    }
+
+    if (!setter || !setters[setter]) {
+      throw new Error(`Unknown PatternsOn state setter "${setter}"`);
+    }
+
+    return setters[setter](state, { key, payload });
+  };
+
+  return memo;
+}, {}));
+
