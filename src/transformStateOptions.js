@@ -119,7 +119,7 @@ function transformOption(t, value, start, offset, usedKeys) {
 }
 
 module.exports = function transformStateOptions({ types: t }, node) {
-  if (!t.isStringLiteral) {
+  if (!t.isStringLiteral(node)) {
     return node;
   }
 
