@@ -1,3 +1,5 @@
+const transformStateOptions = require('./src/transformStateOptions');
+
 module.exports = [
   {
     name: 'html',
@@ -7,5 +9,6 @@ module.exports = [
   {
     name: 'state',
     source: './src/ConnectDirective',
+    transformOptions: transformStateOptions,
   },
 ];

@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transformStateOptions throws a correct code frame for second state getter 1`] = `
+"test.js: Unexpected token :
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"value:name;other:value:name\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                                    [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a correct code frame when scope is deeper than 1 with name mapping 1`] = `
+"test.js: Unexpected token /
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"drrt:foo/bar/baz\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                          [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a correct code frame when scope is deeper than 1 with name mapping setter 1`] = `
+"test.js: Unexpected token /
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"drrt:brr(foo/bar/baz)\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                              [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a syntax error setter is not closed 1`] = `
+"test.js: Unexpected end of input
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo(bar\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                     [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a syntax error setter is not end of statement 1`] = `
+"test.js: Expected end of input
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo(bar)lol\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                      [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a syntax error when multiple name mappings are used 1`] = `
+"test.js: Unexpected token :
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo:bar:baz\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                     [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a syntax error when scope is deeper than 1 1`] = `
+"test.js: Unexpected token /
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo/bar/baz\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                     [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws a syntax error when setters are nested 1`] = `
+"test.js: Unexpected token (
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo(bar())\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                     [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws error when keys are used twice 1`] = `
+"test.js: Key 'foo' has already been declared
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"foo;foo\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                  [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions throws error when keys are used twice via name mapping 1`] = `
+"test.js: Key 'set' has already been declared
+[0m[31m[1m>[22m[39m[90m 1 | [39m[33m<[39m[33mdiv[39m options[33m=[39m[32m\\"set(name);set:foo\\"[39m [33m/[39m[33m>[39m
+ [90m   | [39m                        [31m[1m^[22m[39m[0m"
+`;
+
+exports[`transformStateOptions transforms a simple state getter 1`] = `
+"<div options={[{
+  key: \\"foo\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms a state getter with name mapping 1`] = `
+"<div options={[{
+  as: \\"foo\\",
+  key: \\"bar\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms a state getter with scope 1`] = `
+"<div options={[{
+  scope: \\"foo\\",
+  key: \\"bar\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms a state getter with scope and name mapping 1`] = `
+"<div options={[{
+  as: \\"aww\\",
+  scope: \\"foo\\",
+  key: \\"bar\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms a state setter 1`] = `
+"<div options={[{
+  setter: \\"toggle\\",
+  key: \\"foo\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms a state setter with name mapping and scope 1`] = `
+"<div options={[{
+  as: \\"onClick\\",
+  setter: \\"toggle\\",
+  scope: \\"foo\\",
+  key: \\"bar\\"
+}]} />;"
+`;
+
+exports[`transformStateOptions transforms two state declarations 1`] = `
+"<div options={[{
+  as: \\"value\\",
+  key: \\"name\\"
+}, {
+  as: \\"onChange\\",
+  setter: \\"set\\",
+  key: \\"name\\"
+}]} />;"
+`;

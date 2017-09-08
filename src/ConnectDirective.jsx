@@ -6,8 +6,8 @@ const selectorsMap = new WeakMap();
 
 function mapStateToProps(_, ownProps) {
   if (!selectorsMap.has(ownProps)) {
-    const selectors = ownProps.options.filter(({ type }) => {
-      return !type || type === 'get';
+    const selectors = ownProps.options.filter(({ setter }) => {
+      return !setter;
     }).reduce((memo, { key, as, scope = defaultScope }) => {
       memo.push({
         key: as || key,
@@ -42,10 +42,10 @@ function getPayload(setter, value) {
 }
 
 function mapDispatchToProps(dispatch, { options }) {
-  return options.filter(({ type }) => {
-    return type === 'set';
-  }).reduce((memo, { key: someKey, as: someAs, scope = defaultScope, setter = 'set' }) => {
-    const key = someAs || `set${someKey[0].toUpperCase()}${someKey.slice(1)}`;
+  return options.filter(({ setter }) => {
+    return !!setter;
+  }).reduce((memo, { key: someKey, as: someAs, scope = defaultScope, setter }) => {
+    const key = someAs || setter;
 
     // eslint-disable-next-line no-param-reassign
     memo[key] = (value) => {
