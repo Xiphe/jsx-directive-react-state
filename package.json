@@ -1,6 +1,6 @@
 {
   "name": "@findus./patternson-directive-state",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "jsx directive to map redux state to component props",
   "main": "config.js",
   "scripts": {
