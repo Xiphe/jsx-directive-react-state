@@ -1,6 +1,7 @@
 /* global PATTERNSON_ENV */
 
 import { combineReducers } from 'redux';
+import { firebaseStateReducer as firebase } from 'redux-react-firebase';
 
 const namespaces = [
   'user',
@@ -47,5 +48,5 @@ export default combineReducers(namespaces.reduce((memo, namespace) => {
   };
 
   return memo;
-}, {}));
+}));
 

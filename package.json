@@ -1,6 +1,6 @@
 {
   "name": "@findus./patternson-directive-state",
-  "version": "0.2.2",
+  "version": "0.3.0-alpha1",
   "description": "jsx directive to map redux state to component props",
   "main": "config.js",
   "scripts": {
@@ -45,6 +45,7 @@
     "prop-types": "15.5.10",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
-    "redux-devtools-extension": "2.13.2"
+    "redux-devtools-extension": "2.13.2",
+    "redux-react-firebase": "2.6.1"
   }
 }
