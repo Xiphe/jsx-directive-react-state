@@ -57,7 +57,8 @@
     "eslint-plugin-react": "7.3.0",
     "jest": "21.0.1",
     "react": "15.6.1",
-    "semantic-release": "8.2.0"
+    "semantic-release": "8.2.0",
+    "strip-ansi": "4.0.0"
   },
   "peerDependencies": {
     "react": "^15.6.1"
