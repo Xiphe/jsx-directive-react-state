@@ -5,6 +5,7 @@
   "main": "config.js",
   "scripts": {
     "test": "jest",
+    "lint": "eslint .",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
