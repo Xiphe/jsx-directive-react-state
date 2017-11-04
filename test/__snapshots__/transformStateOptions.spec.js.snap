@@ -1,22 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`transformStateOptions throws a correct code frame for second state getter 1`] = `
-"test.js: Unexpected token :
-> 1 | <div options=\\"value:name;other:value:name\\" />
-    |                                     ^"
-`;
-
-exports[`transformStateOptions throws a correct code frame when scope is deeper than 1 with name mapping 1`] = `
-"test.js: Unexpected token /
-> 1 | <div options=\\"drrt:foo/bar/baz\\" />
-    |                           ^"
-`;
-
-exports[`transformStateOptions throws a correct code frame when scope is deeper than 1 with name mapping setter 1`] = `
-"test.js: Unexpected token /
-> 1 | <div options=\\"drrt:brr(foo/bar/baz)\\" />
-    |                               ^"
-`;
+exports[`transformStateOptions does not transform objects 1`] = `"<div options={{ foo: \\"bar\\" }} />;"`;
 
 exports[`transformStateOptions throws a syntax error setter is not closed 1`] = `
 "test.js: Unexpected end of input
@@ -28,12 +12,6 @@ exports[`transformStateOptions throws a syntax error setter is not end of statem
 "test.js: Expected end of input
 > 1 | <div options=\\"foo(bar)lol\\" />
     |                       ^"
-`;
-
-exports[`transformStateOptions throws a syntax error when multiple name mappings are used 1`] = `
-"test.js: Unexpected token :
-> 1 | <div options=\\"foo:bar:baz\\" />
-    |                      ^"
 `;
 
 exports[`transformStateOptions throws a syntax error when scope is deeper than 1 1`] = `
@@ -48,69 +26,34 @@ exports[`transformStateOptions throws a syntax error when setters are nested 1`]
     |                      ^"
 `;
 
-exports[`transformStateOptions throws error when keys are used twice 1`] = `
-"test.js: Key 'foo' has already been declared
-> 1 | <div options=\\"foo;foo\\" />
-    |                   ^"
+exports[`transformStateOptions throws when a colon is being used 1`] = `
+"test.js: Unexpected token :
+> 1 | <div options=\\"bar:foo(bar)\\" />
+    |                  ^"
 `;
 
-exports[`transformStateOptions throws error when keys are used twice via name mapping 1`] = `
-"test.js: Key 'set' has already been declared
-> 1 | <div options=\\"set(name);set:foo\\" />
-    |                         ^"
+exports[`transformStateOptions throws when a semicolon is being used 1`] = `
+"test.js: Unexpected token ;
+> 1 | <div options=\\"bar;foo(bar)\\" />
+    |                  ^"
 `;
 
 exports[`transformStateOptions transforms a simple state getter 1`] = `
-"<div options={[{
+"<div options={{
   key: \\"foo\\"
-}]} />;"
-`;
-
-exports[`transformStateOptions transforms a state getter with name mapping 1`] = `
-"<div options={[{
-  as: \\"foo\\",
-  key: \\"bar\\"
-}]} />;"
+}} />;"
 `;
 
 exports[`transformStateOptions transforms a state getter with scope 1`] = `
-"<div options={[{
+"<div options={{
   scope: \\"foo\\",
   key: \\"bar\\"
-}]} />;"
-`;
-
-exports[`transformStateOptions transforms a state getter with scope and name mapping 1`] = `
-"<div options={[{
-  as: \\"aww\\",
-  scope: \\"foo\\",
-  key: \\"bar\\"
-}]} />;"
+}} />;"
 `;
 
 exports[`transformStateOptions transforms a state setter 1`] = `
-"<div options={[{
+"<div options={{
   setter: \\"toggle\\",
   key: \\"foo\\"
-}]} />;"
-`;
-
-exports[`transformStateOptions transforms a state setter with name mapping and scope 1`] = `
-"<div options={[{
-  as: \\"onClick\\",
-  setter: \\"toggle\\",
-  scope: \\"foo\\",
-  key: \\"bar\\"
-}]} />;"
-`;
-
-exports[`transformStateOptions transforms two state declarations 1`] = `
-"<div options={[{
-  as: \\"value\\",
-  key: \\"name\\"
-}, {
-  as: \\"onChange\\",
-  setter: \\"set\\",
-  key: \\"name\\"
-}]} />;"
+}} />;"
 `;
