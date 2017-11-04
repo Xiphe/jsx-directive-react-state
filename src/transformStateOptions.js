@@ -1,23 +1,3 @@
-function getAs(declaration, start, offset) {
-  const tokens = declaration.split(':');
-
-  if (tokens.length > 2) {
-    // eslint-disable-next-line no-param-reassign
-    start.column += tokens.slice(0, 2).join(':').length + 1 + offset;
-    throw new Error('Unexpected token :');
-  }
-
-  if (tokens.length === 2) {
-    return {
-      offset: offset + tokens[0].length + 1,
-      as: tokens[0],
-      declaration: tokens[1],
-    };
-  }
-
-  return { declaration, offset };
-}
-
 function getScope(declaration, start, offset) {
   const tokens = declaration.split('/');
 
@@ -72,18 +52,10 @@ function getSetter(declaration, start, offset) {
   return { declaration, offset };
 }
 
-function transformOption(t, value, start, offset, usedKeys) {
-  const asResult = getAs(value, start, offset);
+function transformOption(t, value, start) {
   const properties = [];
 
-  if (asResult.as) {
-    properties.push(t.objectProperty(
-      t.identifier('as'),
-      t.stringLiteral(asResult.as),
-    ));
-  }
-
-  const setterResult = getSetter(asResult.declaration, start, asResult.offset);
+  const setterResult = getSetter(value, start, 0);
 
   if (setterResult.setter) {
     properties.push(t.objectProperty(
@@ -106,15 +78,6 @@ function transformOption(t, value, start, offset, usedKeys) {
     t.stringLiteral(scopeResult.declaration),
   ));
 
-  const internalName = setterResult.setter ? setterResult.setter : scopeResult.declaration;
-  const name = asResult.as || internalName;
-  if (usedKeys.indexOf(name) !== -1) {
-    // eslint-disable-next-line no-param-reassign
-    start.column += offset + 1;
-    throw new Error(`Key '${name}' has already been declared`);
-  }
-
-  usedKeys.push(name);
   return t.objectExpression(properties);
 }
 
@@ -123,24 +86,25 @@ module.exports = function transformStateOptions({ types: t }, node) {
     return node;
   }
 
-  let offset = 0;
-  const usedKeys = [];
+  const semiPos = node.value.indexOf(';');
+  if (semiPos >= 0) {
+    // eslint-disable-next-line no-param-reassign
+    node.loc.start.column += semiPos + 1;
+    throw new Error('Unexpected token ;');
+  }
 
-  const declarations = node.value.split(';').map((declaration) => {
-    const transformedDeclaration = transformOption(
-      t,
-      declaration,
-      node.loc.start,
-      offset,
-      usedKeys,
-    );
+  const colonPos = node.value.indexOf(':');
+  if (colonPos >= 0) {
+    // eslint-disable-next-line no-param-reassign
+    node.loc.start.column += colonPos + 1;
+    throw new Error('Unexpected token :');
+  }
 
-    offset += declaration.length + 1;
-
-    return transformedDeclaration;
-  });
-
-  return t.jSXExpressionContainer(
-    t.arrayExpression(declarations),
+  const declaration = transformOption(
+    t,
+    node.value,
+    node.loc.start,
   );
+
+  return t.jSXExpressionContainer(declaration);
 };

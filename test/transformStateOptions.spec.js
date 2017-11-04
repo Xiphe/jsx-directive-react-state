@@ -3,7 +3,7 @@ const babel = require('babel-core');
 const errorMatchingSnapshot = require('./helpers/errorMatchingSnapshot');
 
 function transform(input) {
-  const sourceString = `<div options="${input}" />`;
+  const sourceString = `<div options=${input} />`;
 
   const code = babel.transform(
     sourceString,
@@ -33,91 +33,55 @@ function transform(input) {
 }
 
 describe('transformStateOptions', () => {
+  it('does not transform objects', () => {
+    expect(transform('{{ foo: "bar" }}')).toMatchSnapshot();
+  });
+
   it('transforms a simple state getter', () => {
-    expect(transform('foo')).toMatchSnapshot();
-  });
-
-  it('transforms a state getter with name mapping', () => {
-    expect(transform('foo:bar')).toMatchSnapshot();
-  });
-
-  it('throws a syntax error when multiple name mappings are used', () => {
-    expect(() => {
-      transform('foo:bar:baz');
-    }).toThrow(errorMatchingSnapshot());
+    expect(transform('"foo"')).toMatchSnapshot();
   });
 
   it('transforms a state getter with scope', () => {
-    expect(transform('foo/bar')).toMatchSnapshot();
+    expect(transform('"foo/bar"')).toMatchSnapshot();
   });
 
   it('throws a syntax error when scope is deeper than 1', () => {
     expect(() => {
-      transform('foo/bar/baz');
-    }).toThrow(errorMatchingSnapshot());
-  });
-
-  it('transforms a state getter with scope and name mapping', () => {
-    expect(transform('aww:foo/bar')).toMatchSnapshot();
-  });
-
-  it('throws a correct code frame when scope is deeper than 1 with name mapping', () => {
-    expect(() => {
-      transform('drrt:foo/bar/baz');
+      transform('"foo/bar/baz"');
     }).toThrow(errorMatchingSnapshot());
   });
 
   it('transforms a state setter', () => {
-    expect(transform('toggle(foo)')).toMatchSnapshot();
+    expect(transform('"toggle(foo)"')).toMatchSnapshot();
   });
 
   it('throws a syntax error when setters are nested', () => {
     expect(() => {
-      transform('foo(bar())');
+      transform('"foo(bar())"');
     }).toThrow(errorMatchingSnapshot());
   });
 
   it('throws a syntax error setter is not closed', () => {
     expect(() => {
-      transform('foo(bar');
+      transform('"foo(bar"');
     }).toThrow(errorMatchingSnapshot());
   });
 
   it('throws a syntax error setter is not end of statement', () => {
     expect(() => {
-      transform('foo(bar)lol');
+      transform('"foo(bar)lol"');
     }).toThrow(errorMatchingSnapshot());
   });
 
-  it('transforms a state setter with name mapping and scope', () => {
-    expect(transform('onClick:toggle(foo/bar)')).toMatchSnapshot();
-  });
-
-  it('throws a correct code frame when scope is deeper than 1 with name mapping setter', () => {
+  it('throws when a semicolon is being used', () => {
     expect(() => {
-      transform('drrt:brr(foo/bar/baz)');
+      transform('"bar;foo(bar)"');
     }).toThrow(errorMatchingSnapshot());
   });
 
-  it('transforms two state declarations', () => {
-    expect(transform('value:name;onChange:set(name)')).toMatchSnapshot();
-  });
-
-  it('throws a correct code frame for second state getter', () => {
+  it('throws when a colon is being used', () => {
     expect(() => {
-      transform('value:name;other:value:name');
-    }).toThrow(errorMatchingSnapshot());
-  });
-
-  it('throws error when keys are used twice', () => {
-    expect(() => {
-      transform('foo;foo');
-    }).toThrow(errorMatchingSnapshot());
-  });
-
-  it('throws error when keys are used twice via name mapping', () => {
-    expect(() => {
-      transform('set(name);set:foo');
+      transform('"bar:foo(bar)"');
     }).toThrow(errorMatchingSnapshot());
   });
 });
