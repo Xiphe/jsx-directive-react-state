@@ -1,20 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
-import configureStore from './configureStore';
 
-const store = configureStore();
+const providers = [];
 
-export default function StateProviderDirective({ Elm, props, next }) {
-  return (
-    <Provider store={store}>
-      {next(Elm, props)}
-    </Provider>
-  );
+export function registerProvider(Provider) {
+  if (Provider) {
+    providers.push(Provider);
+  }
 }
 
-StateProviderDirective.propTypes = {
-  Elm: PropTypes.node.isRequired,
-  props: PropTypes.objectOf(PropTypes.any).isRequired,
-  next: PropTypes.func.isRequired,
-};
+export default function StateProviderDirective({ next, Elm, props }) {
+  return providers.reduce((children, Provider) => {
+    return <Provider>{children}</Provider>;
+  }, next(Elm, props));
+}
