@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getDirectiveSource throws when a undefined scope is being used 1`] = `"State scope \\"foo\\" is not defined."`;
+
+exports[`getDirectiveSource throws when a undefined scope type is being used 1`] = `"Unexpected use of unknown scope type \\"bar\\""`;
