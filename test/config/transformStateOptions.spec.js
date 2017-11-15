@@ -1,6 +1,6 @@
-const transformStateOptions = require('../src/transformStateOptions');
+const transformStateOptions = require('../../config/transformStateOptions');
 const babel = require('babel-core');
-const errorMatchingSnapshot = require('./helpers/errorMatchingSnapshot');
+const errorMatchingSnapshot = require('../helpers/errorMatchingSnapshot');
 
 function transform(input) {
   const sourceString = `<div options=${input} />`;
