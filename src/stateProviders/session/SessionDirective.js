@@ -1,8 +1,13 @@
 import { connect } from 'react-redux';
 
 const selectorsMap = new WeakMap();
+const nothing = {};
 
 function mapStateToProps(_, ownProps) {
+  if (!ownProps.options) {
+    return nothing;
+  }
+
   if (!selectorsMap.has(ownProps)) {
     if (ownProps.options.setter) {
       selectorsMap.set(ownProps, {});
@@ -33,32 +38,27 @@ function getPayload(setter, value) {
   }
 }
 
-const dispatchMap = new WeakMap();
 function mapDispatchToProps(dispatch, ownProps) {
-  if (!dispatchMap.has(ownProps)) {
-    if (!ownProps.options.setter) {
-      dispatchMap.set(ownProps, {});
-    } else {
-      const { key, scope, setter } = ownProps.options;
-
-      dispatchMap.set(ownProps, {
-        [ownProps.as || setter](value) {
-          const action = {
-            type: `PATTERNSON:${setter.toUpperCase()}:${scope}:${key}`,
-          };
-          const payload = getPayload(setter, value);
-
-          if (payload !== undefined) {
-            action.payload = payload;
-          }
-
-          dispatch(action);
-        },
-      });
-    }
+  if (!ownProps.options || !ownProps.options.setter) {
+    return nothing;
   }
 
-  return dispatchMap.get(ownProps);
+  const { key, scope, setter } = ownProps.options;
+
+  return {
+    [ownProps.as || setter](value) {
+      const action = {
+        type: `PATTERNSON:${setter.toUpperCase()}:${scope}:${key}`,
+      };
+      const payload = getPayload(setter, value);
+
+      if (payload !== undefined) {
+        action.payload = payload;
+      }
+
+      dispatch(action);
+    },
+  };
 }
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
