@@ -3,9 +3,7 @@ import React from 'react';
 const providers = [];
 
 export function registerProvider(Provider) {
-  if (Provider) {
-    providers.push(Provider);
-  }
+  providers.push(Provider);
 }
 
 export default function StateProviderDirective({ next, Elm, props }) {
