@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
 
 const setters = {
-  SET(state, { key, payload }, name) {
-    if (Array.isArray(payload)) {
-      throw new Error(`Can not set array value to key "${key}" of state "${name}"`);
-    }
-
+  SET(state, { key, payload }) {
     return {
       ...state,
       [key]: payload,
