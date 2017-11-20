@@ -7,7 +7,7 @@ export function registerProvider(Provider) {
 }
 
 export default function StateProviderDirective({ next, Elm, props }) {
-  return providers.reduce((children, Provider) => {
+  return [...providers].reverse().reduce((children, Provider) => {
     return <Provider>{children}</Provider>;
   }, next(Elm, props));
 }
