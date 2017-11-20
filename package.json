@@ -76,8 +76,5 @@
   },
   "release": {
     "verifyConditions": "condition-circle"
-  },
-  "publishConfig": {
-    "access": "restricted"
   }
 }
