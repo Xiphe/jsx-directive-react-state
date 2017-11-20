@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`session runtime has no access to non-session state types 1`] = `"Can not use state \\"foo\\" if it's not initialized."`;
+
+exports[`session runtime renders data from initial state 1`] = `
+<div>
+  baz
+</div>
+`;
+
+exports[`session runtime renders renamed data from initial state 1`] = `
+<div>
+  baf
+</div>
+`;
+
+exports[`session runtime renders without error 1`] = `<div />`;
+
+exports[`session runtime throws when a unknown setter is used 1`] = `"Unknown PatternsOn state setter \\"BAZ\\""`;
+
+exports[`session runtime throws when a unknown state is used 1`] = `"Can not use state \\"foo\\" if it's not initialized."`;
