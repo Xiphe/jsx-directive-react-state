@@ -1,5 +1,5 @@
 {
-  "name": "@findus./patternson-directive-state",
+  "name": "jsx-directive-react-state",
   "version": "0.0.0-development",
   "description": "jsx directive to map redux state to component props",
   "main": "config",
@@ -10,19 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Xiphe/patternson-directive-state.git"
+    "url": "https://github.com/Xiphe/jsx-directive-react-state.git"
   },
   "keywords": [
     "state",
+    "react",
     "redux",
-    "patternson",
     "directive",
     "jsx"
   ],
   "author": "",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/Xiphe/patternson-directive-state/issues"
+    "url": "https://github.com/Xiphe/jsx-directive-react-state/issues"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -40,7 +40,7 @@
       }
     }
   },
-  "homepage": "https://github.com/Xiphe/patternson-directive-state#readme",
+  "homepage": "https://github.com/Xiphe/jsx-directive-react-state#readme",
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-jest": "21.2.0",

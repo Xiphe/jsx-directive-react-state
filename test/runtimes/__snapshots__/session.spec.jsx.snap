@@ -16,6 +16,6 @@ exports[`session runtime renders renamed data from initial state 1`] = `
 
 exports[`session runtime renders without error 1`] = `<div />`;
 
-exports[`session runtime throws when a unknown setter is used 1`] = `"Unknown PatternsOn state setter \\"BAZ\\""`;
+exports[`session runtime throws when a unknown setter is used 1`] = `"Unknown state setter \\"BAZ\\""`;
 
 exports[`session runtime throws when a unknown state is used 1`] = `"Can not use state \\"foo\\" if it's not initialized."`;

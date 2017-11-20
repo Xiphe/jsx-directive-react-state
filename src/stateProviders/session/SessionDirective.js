@@ -48,7 +48,7 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     [ownProps.as || setter](value) {
       const action = {
-        type: `PATTERNSON:${setter.toUpperCase()}:${scope}:${key}`,
+        type: `JDRS:${setter.toUpperCase()}:${scope}:${key}`,
       };
       const payload = getPayload(setter, value);
 

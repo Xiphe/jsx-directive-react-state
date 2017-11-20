@@ -17,18 +17,18 @@ const setters = {
 function createReducer(initialState = {}, name) {
   return (state = initialState, { type, payload }) => {
     const [
-      PATTERNSON,
+      prefix,
       setter,
       scope,
       key,
     ] = type.split(':');
 
-    if (PATTERNSON !== 'PATTERNSON' || scope !== name) {
+    if (prefix !== 'JDRS' || scope !== name) {
       return state;
     }
 
     if (!setter || !setters[setter]) {
-      throw new Error(`Unknown PatternsOn state setter "${setter}"`);
+      throw new Error(`Unknown state setter "${setter}"`);
     }
 
     return setters[setter](state, { key, payload }, name);
