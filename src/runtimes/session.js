@@ -2,9 +2,7 @@ import SessionDirective, { bootstrap as sessionBootstrap, Provider } from '../st
 import { registerProvider } from '../StateProviderDirective';
 import { createBootstrap } from './helpers';
 
-if (Provider) {
-  registerProvider(Provider);
-}
+registerProvider(Provider);
 
 export default SessionDirective;
 export const bootstrap = createBootstrap('session', sessionBootstrap);
