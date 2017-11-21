@@ -12,11 +12,13 @@ function mapStateToProps(_, ownProps) {
     if (ownProps.options.setter) {
       selectorsMap.set(ownProps, {});
     } else {
-      selectorsMap.set(ownProps, (state) => {
+      selectorsMap.set(ownProps, state => {
         const { key, scope } = ownProps.options;
 
         if (!state[scope]) {
-          throw new Error(`Can not use state "${scope}" if it's not initialized.`);
+          throw new Error(
+            `Can not use state "${scope}" if it's not initialized.`,
+          );
         }
 
         return {
@@ -72,7 +74,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(({ Elm, props, next }) => {
-  return next(Elm, props);
-});
-
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(
+  ({ Elm, props, next }) => {
+    return next(Elm, props);
+  },
+);

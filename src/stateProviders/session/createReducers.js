@@ -16,12 +16,7 @@ const setters = {
 
 function createReducer(initialState = {}, name) {
   return (state = initialState, { type, payload }) => {
-    const [
-      prefix,
-      setter,
-      scope,
-      key,
-    ] = type.split(':');
+    const [prefix, setter, scope, key] = type.split(':');
 
     if (prefix !== 'JDRS' || scope !== name) {
       return state;
@@ -36,13 +31,14 @@ function createReducer(initialState = {}, name) {
 }
 
 export default function createReducers(options) {
-  return combineReducers(Object.keys(options).reduce((memo, name) => {
-    const { initialState } = options[name];
+  return combineReducers(
+    Object.keys(options).reduce((memo, name) => {
+      const { initialState } = options[name];
 
-    // eslint-disable-next-line no-param-reassign
-    memo[name] = createReducer(initialState, name);
+      // eslint-disable-next-line no-param-reassign
+      memo[name] = createReducer(initialState, name);
 
-    return memo;
-  }, {}));
+      return memo;
+    }, {}),
+  );
 }
-

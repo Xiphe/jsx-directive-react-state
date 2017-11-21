@@ -5,29 +5,26 @@ const errorMatchingSnapshot = require('../helpers/errorMatchingSnapshot');
 function transform(input) {
   const sourceString = `<div options=${input} />`;
 
-  const code = babel.transform(
-    sourceString,
-    {
-      filename: 'test.js',
-      babelrc: false,
-      plugins: [
-        'syntax-jsx',
-        () => ({
-          visitor: {
-            JSXAttribute(path) {
-              const value = path.get('value');
+  const code = babel.transform(sourceString, {
+    filename: 'test.js',
+    babelrc: false,
+    plugins: [
+      'syntax-jsx',
+      () => ({
+        visitor: {
+          JSXAttribute(path) {
+            const value = path.get('value');
 
-              try {
-                value.replaceWith(transformStateOptions(babel, value.node));
-              } catch (e) {
-                throw value.hub.file.buildCodeFrameError(value.node, e.message);
-              }
-            },
+            try {
+              value.replaceWith(transformStateOptions(babel, value.node));
+            } catch (e) {
+              throw value.hub.file.buildCodeFrameError(value.node, e.message);
+            }
           },
-        }),
-      ],
-    },
-  ).code;
+        },
+      }),
+    ],
+  }).code;
 
   return code;
 }

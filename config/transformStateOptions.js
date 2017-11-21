@@ -58,25 +58,35 @@ function transformOption(t, value, start) {
   const setterResult = getSetter(value, start, 0);
 
   if (setterResult.setter) {
-    properties.push(t.objectProperty(
-      t.identifier('setter'),
-      t.stringLiteral(setterResult.setter),
-    ));
+    properties.push(
+      t.objectProperty(
+        t.identifier('setter'),
+        t.stringLiteral(setterResult.setter),
+      ),
+    );
   }
 
-  const scopeResult = getScope(setterResult.declaration, start, setterResult.offset);
+  const scopeResult = getScope(
+    setterResult.declaration,
+    start,
+    setterResult.offset,
+  );
 
   if (scopeResult.scope) {
-    properties.push(t.objectProperty(
-      t.identifier('scope'),
-      t.stringLiteral(scopeResult.scope),
-    ));
+    properties.push(
+      t.objectProperty(
+        t.identifier('scope'),
+        t.stringLiteral(scopeResult.scope),
+      ),
+    );
   }
 
-  properties.push(t.objectProperty(
-    t.identifier('key'),
-    t.stringLiteral(scopeResult.declaration),
-  ));
+  properties.push(
+    t.objectProperty(
+      t.identifier('key'),
+      t.stringLiteral(scopeResult.declaration),
+    ),
+  );
 
   return t.objectExpression(properties);
 }
@@ -100,11 +110,7 @@ module.exports = function transformStateOptions({ types: t }, node) {
     throw new Error('Unexpected token :');
   }
 
-  const declaration = transformOption(
-    t,
-    node.value,
-    node.loc.start,
-  );
+  const declaration = transformOption(t, node.value, node.loc.start);
 
   return t.jSXExpressionContainer(declaration);
 };

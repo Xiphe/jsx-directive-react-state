@@ -12,18 +12,12 @@ function terminator(Elm, props) {
 }
 
 function Provider({ children }) {
-  return (
-    <StateProviderDirective
-      Elm="div"
-      props={{}}
-      next={() => children}
-    />
-  );
+  return <StateProviderDirective Elm="div" props={{}} next={() => children} />;
 }
 
 function withState({ options, as }) {
-  return (WrappedComponent) => {
-    return (props) => {
+  return WrappedComponent => {
+    return props => {
       return (
         <SessionDirective
           Elm={WrappedComponent}
@@ -43,11 +37,13 @@ describe('session runtime', () => {
 
     bootstrap({ foo: { type: 'session' } });
 
-    const tree = renderer.create(
-      <Provider>
-        <SimpleDiv />
-      </Provider>,
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <Provider>
+          <SimpleDiv />
+        </Provider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -61,11 +57,13 @@ describe('session runtime', () => {
 
     bootstrap({ foo: { type: 'session', initialState: { bar: 'baz' } } });
 
-    const tree = renderer.create(
-      <Provider>
-        <BazDiv />
-      </Provider>,
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <Provider>
+          <BazDiv />
+        </Provider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -78,11 +76,13 @@ describe('session runtime', () => {
 
     bootstrap({ foo: { type: 'session', initialState: { bar: 'baf' } } });
 
-    const tree = renderer.create(
-      <Provider>
-        <BazDiv />
-      </Provider>,
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <Provider>
+          <BazDiv />
+        </Provider>,
+      )
+      .toJSON();
 
     expect(tree).toMatchSnapshot();
   });
@@ -177,11 +177,13 @@ describe('session runtime', () => {
     bootstrap({ bar: { type: 'session', initialState: { bar: 'baf' } } });
 
     expect(() => {
-      renderer.create(
-        <Provider>
-          <BazDiv />
-        </Provider>,
-      ).toJSON();
+      renderer
+        .create(
+          <Provider>
+            <BazDiv />
+          </Provider>,
+        )
+        .toJSON();
     }).toThrowErrorMatchingSnapshot();
   });
 
@@ -214,11 +216,13 @@ describe('session runtime', () => {
     bootstrap({ bar: { type: 'nope', initialState: { bar: 'baf' } } });
 
     expect(() => {
-      renderer.create(
-        <Provider>
-          <BazDiv />
-        </Provider>,
-      ).toJSON();
+      renderer
+        .create(
+          <Provider>
+            <BazDiv />
+          </Provider>,
+        )
+        .toJSON();
     }).toThrowErrorMatchingSnapshot();
   });
 });

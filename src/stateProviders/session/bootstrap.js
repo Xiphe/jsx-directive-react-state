@@ -9,8 +9,5 @@ export function getStore() {
 }
 
 export default function bootstrap(options) {
-  store = createStore(
-    createReducers(options),
-    devToolsEnhancer(),
-  );
+  store = createStore(createReducers(options), devToolsEnhancer());
 }

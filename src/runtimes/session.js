@@ -1,4 +1,7 @@
-import SessionDirective, { bootstrap as sessionBootstrap, Provider } from '../stateProviders/session';
+import SessionDirective, {
+  bootstrap as sessionBootstrap,
+  Provider,
+} from '../stateProviders/session';
 import { registerProvider } from '../StateProviderDirective';
 import { createBootstrap } from './helpers';
 

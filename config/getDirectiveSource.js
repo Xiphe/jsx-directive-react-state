@@ -14,6 +14,8 @@ module.exports = function getDirectiveSource(optionsNode, bootstrap) {
     case 'session':
       return './src/runtimes/session';
     default:
-      throw new Error(`Unexpected use of unknown scope type "${scopeDefinition.type}"`);
+      throw new Error(
+        `Unexpected use of unknown scope type "${scopeDefinition.type}"`,
+      );
   }
 };

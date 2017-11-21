@@ -1,5 +1,5 @@
 export default function createBootstrap(providerKey, bootstrapFn) {
-  return (options) => {
+  return options => {
     const typeOptions = Object.keys(options).reduce((memo, key) => {
       const definition = options[key];
 

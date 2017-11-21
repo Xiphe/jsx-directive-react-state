@@ -1,11 +1,11 @@
 const getDirectiveSource = require('../../config/getDirectiveSource');
 
 function createNode(properties) {
-  return ({
+  return {
     expression: {
       properties,
     },
-  });
+  };
 }
 
 function createProperty(name, value) {
