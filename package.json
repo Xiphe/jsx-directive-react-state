@@ -6,21 +6,16 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Xiphe/jsx-directive-react-state.git"
   },
-  "keywords": [
-    "state",
-    "react",
-    "redux",
-    "directive",
-    "jsx"
-  ],
+  "keywords": ["state", "react", "redux", "directive", "jsx"],
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Xiphe/jsx-directive-react-state/issues"
   },
