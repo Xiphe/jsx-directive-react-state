@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Xiphe/jsx-directive-react-state.git"
+    "url": "https://github.com/kalispera/jsx-directive-react-state.git"
   },
   "keywords": ["state", "react", "redux", "directive", "jsx"],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Xiphe/jsx-directive-react-state/issues"
+    "url": "https://github.com/kalispera/jsx-directive-react-state/issues"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -36,7 +36,7 @@
       }
     }
   },
-  "homepage": "https://github.com/Xiphe/jsx-directive-react-state#readme",
+  "homepage": "https://github.com/kalispera/jsx-directive-react-state#readme",
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-jest": "21.2.0",
