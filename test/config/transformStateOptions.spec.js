@@ -5,7 +5,7 @@ const errorMatchingSnapshot = require('../helpers/errorMatchingSnapshot');
 function transform(input) {
   const sourceString = `<div options=${input} />`;
 
-  const code = babel.transform(sourceString, {
+  const { code } = babel.transform(sourceString, {
     filename: 'test.js',
     babelrc: false,
     plugins: [
@@ -24,7 +24,7 @@ function transform(input) {
         },
       }),
     ],
-  }).code;
+  });
 
   return code;
 }

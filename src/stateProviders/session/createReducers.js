@@ -31,6 +31,10 @@ function createReducer(initialState = {}, name) {
 }
 
 export default function createReducers(options) {
+  if (!Object.keys(options).length) {
+    return (s = {}) => s;
+  }
+
   return combineReducers(
     Object.keys(options).reduce((memo, name) => {
       const { initialState } = options[name];

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import SessionDirective, { bootstrap } from '../../src/runtimes/session';
 import StateProviderDirective from '../../src/StateProviderDirective';
@@ -208,12 +208,12 @@ describe('session runtime', () => {
   });
 
   it('has no access to non-session state types', () => {
+    bootstrap({ bar: { type: 'nope', initialState: { bar: 'baf' } } });
+
     const BazDiv = withState({
       options: { key: 'bar', scope: 'foo' },
       as: 'children',
     })('div');
-
-    bootstrap({ bar: { type: 'nope', initialState: { bar: 'baf' } } });
 
     expect(() => {
       renderer
