@@ -1,4 +1,5 @@
 const getDirectiveSource = require('../../config/getDirectiveSource');
+const { registerProvider, __reset } = require('../../config/providers');
 
 function createNode(properties) {
   return {
@@ -16,11 +17,15 @@ function createProperty(name, value) {
 }
 
 describe('getDirectiveSource', () => {
+  afterEach(() => {
+    __reset();
+  });
+
   it('throws when a undefined scope is being used', () => {
     const fakeNode = createNode([createProperty('scope', 'foo')]);
 
     expect(() => {
-      getDirectiveSource(fakeNode, { bar: {} });
+      getDirectiveSource(fakeNode, {});
     }).toThrowErrorMatchingSnapshot();
   });
 
@@ -32,11 +37,12 @@ describe('getDirectiveSource', () => {
     }).toThrowErrorMatchingSnapshot();
   });
 
-  it('supports a session scope type', () => {
+  it('supports a registered scope type', () => {
+    registerProvider('bar', '/bar.js');
     const fakeNode = createNode([createProperty('scope', 'foo')]);
 
-    const source = getDirectiveSource(fakeNode, { foo: { type: 'session' } });
+    const source = getDirectiveSource(fakeNode, { foo: { type: 'bar' } });
 
-    expect(source).toBe('./src/runtimes/session');
+    expect(source).toBe('/bar.js');
   });
 });

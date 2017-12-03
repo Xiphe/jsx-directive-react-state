@@ -1,5 +1,9 @@
+const path = require('path');
 const transformStateOptions = require('./transformStateOptions');
 const getDirectiveSource = require('./getDirectiveSource');
+const { registerProvider } = require('./providers');
+
+registerProvider('session', path.resolve(__dirname, '../src/runtimes/session'));
 
 module.exports = [
   {
@@ -14,3 +18,5 @@ module.exports = [
     transformOptions: transformStateOptions,
   },
 ];
+
+module.exports.register = registerProvider;

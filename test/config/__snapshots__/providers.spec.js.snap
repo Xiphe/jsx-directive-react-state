@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`providers does not support overwrites of providers 1`] = `"state provider \\"foo\\" is already registered"`;

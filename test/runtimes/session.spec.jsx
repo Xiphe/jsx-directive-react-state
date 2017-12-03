@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
+
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
-import SessionDirective, { bootstrap } from '../../src/runtimes/session';
+import SessionDirective, { bootstrap } from '../../src/stateProviders/session';
 import StateProviderDirective from '../../src/StateProviderDirective';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -31,7 +33,15 @@ function withState({ options, as }) {
   };
 }
 
+const originalConsoleError = console.error;
+
+function noop() {}
+
 describe('session runtime', () => {
+  afterEach(() => {
+    console.error = originalConsoleError;
+  });
+
   it('renders without error', () => {
     const SimpleDiv = withState({})('div');
 
@@ -176,6 +186,7 @@ describe('session runtime', () => {
 
     bootstrap({ bar: { type: 'session', initialState: { bar: 'baf' } } });
 
+    console.error = noop;
     expect(() => {
       renderer
         .create(
@@ -215,6 +226,7 @@ describe('session runtime', () => {
       as: 'children',
     })('div');
 
+    console.error = noop;
     expect(() => {
       renderer
         .create(

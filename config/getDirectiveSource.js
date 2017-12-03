@@ -1,8 +1,11 @@
+const { getProviders } = require('./providers');
+
 function isScopeProp(property) {
   return property.key.name === 'scope';
 }
 
 module.exports = function getDirectiveSource(optionsNode, bootstrap) {
+  const providers = getProviders();
   const scope = optionsNode.expression.properties.find(isScopeProp).value.value;
   const scopeDefinition = bootstrap[scope];
 
@@ -10,12 +13,13 @@ module.exports = function getDirectiveSource(optionsNode, bootstrap) {
     throw new Error(`State scope "${scope}" is not defined.`);
   }
 
-  switch (scopeDefinition.type) {
-    case 'session':
-      return './src/runtimes/session';
-    default:
-      throw new Error(
-        `Unexpected use of unknown scope type "${scopeDefinition.type}"`,
-      );
+  if (!providers[scopeDefinition.type]) {
+    throw new Error(
+      `There is no registered provider for scope of type "${
+        scopeDefinition.type
+      }"`,
+    );
   }
+
+  return providers[scopeDefinition.type];
 };

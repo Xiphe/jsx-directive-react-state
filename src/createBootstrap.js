@@ -1,4 +1,6 @@
-export default function createBootstrap(providerKey, bootstrapFn) {
+import { registerProvider } from './StateProviderDirective';
+
+export default function createBootstrap(providerKey, bootstrapFn, Provider) {
   return options => {
     const typeOptions = Object.keys(options).reduce((memo, key) => {
       const definition = options[key];
@@ -11,6 +13,7 @@ export default function createBootstrap(providerKey, bootstrapFn) {
       return memo;
     }, {});
 
+    registerProvider(Provider);
     bootstrapFn(typeOptions);
   };
 }
