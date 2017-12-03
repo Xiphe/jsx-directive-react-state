@@ -3,7 +3,10 @@ const transformStateOptions = require('./transformStateOptions');
 const getDirectiveSource = require('./getDirectiveSource');
 const { registerProvider } = require('./providers');
 
-registerProvider('session', path.resolve(__dirname, '../src/runtimes/session'));
+registerProvider(
+  'session',
+  path.resolve(__dirname, '../src/stateProviders/session'),
+);
 
 module.exports = [
   {
