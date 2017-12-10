@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const getDirectiveSource = require('../../config/getDirectiveSource');
 const { registerProvider, __reset } = require('../../config/providers');
 
