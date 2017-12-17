@@ -12,8 +12,12 @@ jobs:
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package-lock.json" }}
-      - run: npm install
-      - run: '$(npm bin)/greenkeeper-lockfile-update && $(npm bin)/greenkeeper-lockfile-upload'
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: 'Update lockfile'
+          command: '$(npm bin)/greenkeeper-lockfile-update && $(npm bin)/greenkeeper-lockfile-upload'
       - save_cache:
           paths:
             - node_modules
@@ -33,7 +37,9 @@ jobs:
       - restore_cache:
           keys:
           - v1-repo-{{ checksum ".circle-sha" }}
-      - run: npm run lint
+      - run:
+          name: Lint
+          command: npm run lint
   test:
     docker:
       - image: circleci/node:8
@@ -45,7 +51,9 @@ jobs:
       - restore_cache:
           keys:
           - v1-repo-{{ checksum ".circle-sha" }}
-      - run: npm test -- --coverage
+      - run:
+          name: Run unit tests
+          command: npm test -- --coverage
       - save_cache:
           paths:
             - coverage
@@ -64,7 +72,9 @@ jobs:
       - restore_cache:
           keys:
           - v1-coverage-{{ checksum ".circle-sha" }}
-      - run: $(npm bin)/codecov
+      - run:
+          name: Upload coverage
+          command: $(npm bin)/codecov
   deploy:
     docker:
       - image: circleci/node:8
@@ -76,7 +86,9 @@ jobs:
       - restore_cache:
           keys:
           - v1-repo-{{ checksum ".circle-sha" }}
-      - run: npm run semantic-release || true
+      - run:
+          name: Release
+          command: npm run semantic-release || true
 
 workflows:
   version: 2
