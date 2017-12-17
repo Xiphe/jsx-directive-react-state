@@ -13,6 +13,7 @@ jobs:
           keys:
           - v1-dependencies-{{ checksum "package-lock.json" }}
       - run: npm install
+      - run: '$(npm bin)/greenkeeper-lockfile-update && $(npm bin)/greenkeeper-lockfile-upload'
       - save_cache:
           paths:
             - node_modules
