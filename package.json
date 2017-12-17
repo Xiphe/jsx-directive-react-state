@@ -6,14 +6,19 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "semantic-release":
-      "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/kalispera/jsx-directive-react-state.git"
   },
-  "keywords": ["state", "react", "redux", "directive", "jsx"],
+  "keywords": [
+    "state",
+    "react",
+    "redux",
+    "directive",
+    "jsx"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
@@ -26,7 +31,9 @@
       "!coverage/**",
       "!config.js"
     ],
-    "setupFiles": ["raf/polyfill"],
+    "setupFiles": [
+      "raf/polyfill"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,
