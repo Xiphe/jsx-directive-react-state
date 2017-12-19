@@ -68,7 +68,7 @@
     "react": "^15.6.1"
   },
   "dependencies": {
-    "firebase": "4.8.0",
+    "firebase": "4.8.1",
     "prop-types": "15.6.0",
     "react-redux": "5.0.6",
     "redux": "3.7.2",
